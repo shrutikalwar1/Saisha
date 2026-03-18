@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="format-detection" content="telephone=no" />
+  <title>For My Love</title>
+  <meta name="description" content="A romantic surprise page made with love." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-1: #0f1020;
+      --bg-2: #251b44;
+      --bg-3: #4b1c3d;
+      --paper: rgba(255, 248, 240, 0.9);
+      --ink: #2d1f24;
+      --rose: #c23a6b;
+      --rose-strong: #9f1f52;
+      --gold: #dca75b;
+      --pearl: #fffaf6;
+      --shadow: rgba(30, 12, 24, 0.28);
+      --radius-xl: 28px;
+      --radius-md: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: "Nunito", sans-serif;
+      color: var(--ink);
+      background: radial-gradient(circle at 20% 15%, #5f2556 0%, transparent 40%),
+                  radial-gradient(circle at 82% 12%, #213b7f 0%, transparent 34%),
+                  linear-gradient(130deg, var(--bg-1), var(--bg-2) 52%, var(--bg-3));
+      overflow-x: hidden;
+      position: relative;
+      display: grid;
+      place-items: center;
+      padding: max(24px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .texture {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.13;
+      background-image: radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 0);
+      background-size: 20px 20px;
+      z-index: -2;
+    }
+
+    .aurora {
+      position: fixed;
+      inset: -10%;
+      filter: blur(50px);
+      pointer-events: none;
+      z-index: -1;
+      animation: drift 18s ease-in-out infinite alternate;
+      background:
+        radial-gradient(ellipse at 22% 35%, rgba(227, 81, 146, 0.4), transparent 55%),
+        radial-gradient(ellipse at 78% 70%, rgba(125, 176, 255, 0.35), transparent 55%),
+        radial-gradient(ellipse at 40% 90%, rgba(255, 192, 120, 0.24), transparent 50%);
+    }
+
+    @keyframes drift {
+      from { transform: translate3d(-2%, -2%, 0) scale(1); }
+      to { transform: translate3d(2%, 1%, 0) scale(1.05); }
+    }
+
+    .wrapper {
+      width: min(960px, 100%);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 248, 240, 0.96), rgba(255, 243, 231, 0.86));
+      box-shadow: 0 30px 80px var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: clamp(20px, 4vw, 42px);
+      transform: translateY(14px);
+      opacity: 0;
+      animation: rise 1s ease forwards;
+    }
+
+    @keyframes rise {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #ffffffbf;
+      border: 1px solid rgba(194, 58, 107, 0.2);
+      color: var(--rose-strong);
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.1rem, 5vw, 4rem);
+      line-height: 1.08;
+      color: var(--rose-strong);
+      margin-bottom: 8px;
+      text-wrap: balance;
+    }
+
+    .subtitle {
+      font-size: clamp(1rem, 2.2vw, 1.35rem);
+      color: #5d3a47;
+      margin-bottom: 22px;
+      font-weight: 600;
+    }
+
+    .letter {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 24px;
+      font-size: clamp(1.03rem, 2.1vw, 1.2rem);
+      line-height: 1.75;
+      color: #3d2b33;
+    }
+
+    .line {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: revealLine 0.85s ease forwards;
+    }
+
+    .line:nth-child(1) { animation-delay: 0.25s; }
+    .line:nth-child(2) { animation-delay: 0.5s; }
+    .line:nth-child(3) { animation-delay: 0.75s; }
+
+    @keyframes revealLine {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 8px;
+      margin-bottom: 26px;
+    }
+
+    .photo-card {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      position: relative;
+      background: #fbe9ed;
+      box-shadow: 0 8px 20px rgba(78, 21, 48, 0.17);
+      transform: rotate(var(--rot));
+      transition: transform 260ms ease, box-shadow 260ms ease;
+      aspect-ratio: 1 / 1;
+    }
+
+    .photo-card:hover {
+      transform: translateY(-6px) scale(1.03) rotate(0deg);
+      box-shadow: 0 16px 35px rgba(78, 21, 48, 0.28);
+    }
+
+    .photo-card img,
+    .photo-card video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Keep the first image fully visible if its subject is near the edges. */
+    .photo-card.first-photo img {
+      object-fit: contain;
+      background: #fbe9ed;
+    }
+
+    .photo-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(16, 6, 11, 0.34), transparent 45%);
+      pointer-events: none;
+    }
+
+    .hearts {
+      text-align: center;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: 20px;
+      animation: pulse 2.3s ease-in-out infinite;
+      user-select: none;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      45% { transform: scale(1.08); }
+    }
+
+    .actions {
+      display: grid;
+      place-items: center;
+      gap: 14px;
+    }
+
+    .music-btn {
+      border: 1px solid rgba(159, 31, 82, 0.25);
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #5a2a3d;
+      background: rgba(255, 255, 255, 0.75);
+      cursor: pointer;
+      transition: transform 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+    }
+
+    .music-btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 8px 20px rgba(93, 34, 60, 0.15);
+    }
+
+    .music-btn:focus-visible {
+      outline: 3px solid rgba(220, 167, 91, 0.8);
+      outline-offset: 3px;
+    }
+
+    .music-hint {
+      font-size: 0.86rem;
+      color: #775464;
+      text-align: center;
+      min-height: 1.2em;
+    }
+
+    .surprise-btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 14px 30px;
+      font-size: 1.02rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: var(--pearl);
+      cursor: pointer;
+      background: linear-gradient(120deg, var(--rose-strong), var(--rose), #d65f78);
+      box-shadow: 0 10px 26px rgba(160, 35, 83, 0.35);
+      transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease;
+    }
+
+    .surprise-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 34px rgba(160, 35, 83, 0.43);
+      filter: saturate(1.05);
+    }
+
+    .surprise-btn:active {
+      transform: translateY(0);
+    }
+
+    .surprise-btn:focus-visible {
+      outline: 3px solid rgba(220, 167, 91, 0.8);
+      outline-offset: 3px;
+    }
+
+    .surprise-panel {
+      width: min(720px, 100%);
+      display: none;
+      border-radius: var(--radius-md);
+      padding: 22px;
+      background: linear-gradient(155deg, #fff7f0, #fff2ee);
+      border: 1px solid rgba(173, 51, 89, 0.19);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), 0 12px 30px rgba(91, 31, 53, 0.16);
+      transform: scale(0.92);
+      opacity: 0;
+    }
+
+    .surprise-panel.show {
+      display: block;
+      animation: popIn 620ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes popIn {
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .surprise-panel h2 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      color: var(--rose-strong);
+      margin-bottom: 8px;
+    }
+
+    .surprise-main {
+      font-size: clamp(1.1rem, 2.4vw, 1.3rem);
+      line-height: 1.55;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .surprise-photo {
+      width: min(460px, 100%);
+      display: block;
+      margin: 0 auto 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(173, 51, 89, 0.2);
+      box-shadow: 0 10px 24px rgba(91, 31, 53, 0.2);
+      object-fit: cover;
+    }
+
+    .surprise-note {
+      color: #6d4a58;
+      line-height: 1.6;
+    }
+
+    .floating-field {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 10;
+    }
+
+    .particle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      opacity: 0;
+      animation: fly var(--duration) linear forwards;
+      background: var(--color);
+      box-shadow: 0 0 10px color-mix(in srgb, var(--color), white 18%);
+    }
+
+    @keyframes fly {
+      0% {
+        transform: translateY(8vh) rotate(0deg) scale(0.7);
+        opacity: 0;
+      }
+      10% { opacity: 1; }
+      100% {
+        transform: translateY(-110vh) rotate(450deg) scale(1);
+        opacity: 0;
+      }
+    }
+
+    footer {
+      margin-top: 18px;
+      font-size: 0.9rem;
+      color: #775464;
+      text-align: center;
+    }
+
+    @media (max-width: 860px) {
+      .gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      body {
+        padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+      }
+
+      .wrapper {
+        padding: 16px;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .surprise-btn {
+        width: 100%;
+      }
+    }
+
+    @media (hover: none) {
+      .photo-card:hover {
+        transform: rotate(var(--rot));
+        box-shadow: 0 8px 20px rgba(78, 21, 48, 0.17);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="texture" aria-hidden="true"></div>
+  <div class="aurora" aria-hidden="true"></div>
+  <div class="floating-field" id="floatingField" aria-hidden="true"></div>
+
+  <main class="wrapper" role="main">
+    <p class="badge">Made with love</p>
+    <h1>Hey Saisha, you are my favorite miracle.</h1>
+    <p class="subtitle">My beautiful love,</p>
+
+    <section class="letter" aria-label="Love letter">
+      <p class="line">Every day with you feels brighter, softer, and more meaningful than the day before.</p>
+      <p class="line">Your smile, your laugh, and the way you care make ordinary moments feel unforgettable.</p>
+      <p class="line">I cannot wait for all the memories still waiting for us. You are my always and forever.</p>
+    </section>
+
+    <section class="gallery" aria-label="Our memories">
+      <figure class="photo-card first-photo" style="--rot: -2deg;">
+        <img src="WhatsApp Image 2026-03-18 at 3.48.34 PM.jpeg" alt="A happy memory together" loading="lazy" />
+      </figure>
+      <figure class="photo-card" style="--rot: 2deg;">
+        <img src="WhatsApp Image 2026-03-18 at 3.50.29 PM.jpeg" alt="A smiling moment" loading="lazy" />
+      </figure>
+      <figure class="photo-card" style="--rot: -1deg;">
+        <video autoplay muted loop playsinline preload="metadata" aria-label="A warm couple moment video">
+          <source src="Video Project.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </figure>
+    </section>
+
+    <div class="hearts" aria-hidden="true">&#10084;&#65039; &#10084;&#65039; &#10084;&#65039;</div>
+
+    <section class="actions">
+      <button class="music-btn" id="musicButton" type="button" aria-pressed="false">Play music</button>
+      <p class="music-hint" id="musicHint">Song loaded: <code>Perfect-(Mr-Jat.i bck for your special surprise</button>
+
+      <article class="surprise-panel" id="surprisePanel" aria-live="polite">
+        <h2>Surprise</h2>
+        <img class="surprise-photo" src="bouquets-of-flowers-1.jpg" alt="A bouquet of flowers for you" loading="lazy" />
+        <p class="surprise-note">I love you more than words can say. Forever yours, Shaurya.</p>
+      </article>
+    </section>
+
+    <footer>&copy; 2024 Shaurya. All rights reserved.</footer>
+  </main>
+
+  <audio id="bgMusic" loop preload="none">
+    <source src="Perfect-(Mr-Jat.in).mp3" type="audio/mpeg" />
+  </audio>
+
+  <script>
+    const floatingField = document.getElementById("floatingField");
+    const surpriseButton = document.getElementById("surpriseButton");
+    const surprisePanel = document.getElementById("surprisePanel");
+    const musicButton = document.getElementById("musicButton");
+    const musicHint = document.getElementById("musicHint");
+    const bgMusic = document.getElementById("bgMusic");
+
+    const colors = ["#e35e90", "#dca75b", "#7ea7ff", "#f16f8f", "#ffffff"];
+
+    function createParticle(intense = false) {
+      const particle = document.createElement("span");
+      particle.className = "particle";
+      particle.style.left = Math.random() * 100 + "%";
+      particle.style.setProperty("--duration", (Math.random() * 3 + (intense ? 2 : 4)) + "s");
+      particle.style.setProperty("--color", colors[Math.floor(Math.random() * colors.length)]);
+      particle.style.width = particle.style.height = (Math.random() * 10 + 6) + "px";
+      floatingField.appendChild(particle);
+
+      window.setTimeout(() => particle.remove(), intense ? 5200 : 7600);
+    }
+
+    // Ambient floating particles.
+    const ambientParticles = window.setInterval(() => createParticle(false), 420);
+
+    function burst(count) {
+      for (let i = 0; i < count; i += 1) {
+        window.setTimeout(() => createParticle(true), i * 35);
+      }
+    }
+
+    async function playMusic() {
+      const hasSource = bgMusic.currentSrc || (bgMusic.querySelector("source") && bgMusic.querySelector("source").src);
+      if (!hasSource) {
+        if (musicHint) musicHint.textContent = "No music source found. Set a valid audio file path.";
+        musicButton.textContent = "Play music";
+        return;
+      }
+
+      try {
+        await bgMusic.play();
+        musicButton.textContent = "Pause music";
+        musicButton.setAttribute("aria-pressed", "true");
+        if (musicHint) musicHint.textContent = "Now playing";
+      } catch (error) {
+        if (bgMusic.error) {
+          if (musicHint) musicHint.textContent = "Music file could not be loaded. Check path: Perfect-(Mr-Jat.in).mp3";
+          musicButton.textContent = "Play music";
+        } else {
+          if (musicHint) musicHint.textContent = "Tap once on the page, then press Play music again.";
+          musicButton.textContent = "Tap to play music";
+        }
+      }
+    }
+
+    function pauseMusic() {
+      bgMusic.pause();
+      musicButton.textContent = "Play music";
+      musicButton.setAttribute("aria-pressed", "false");
+      if (musicHint) musicHint.textContent = "Paused";
+    }
+
+    async function toggleMusic() {
+      if (bgMusic.paused) {
+        await playMusic();
+      } else {
+        pauseMusic();
+      }
+    }
+
+    bgMusic.addEventListener("error", () => {
+      if (musicHint) musicHint.textContent = "Music file missing or unsupported. Place one at Perfect-(Mr-Jat.in).mp3";
+      musicButton.textContent = "Play music";
+      musicButton.setAttribute("aria-pressed", "false");
+    });
+
+    function showSurprise() {
+      surprisePanel.classList.add("show");
+      surpriseButton.disabled = true;
+      surpriseButton.textContent = "Your surprise is here";
+      burst(64);
+      window.clearInterval(ambientParticles);
+      // Keep a softer ambient effect after reveal.
+      window.setInterval(() => createParticle(false), 900);
+
+      // First meaningful interaction can start music on mobile browsers.
+      if (bgMusic.paused) {
+        playMusic();
+      }
+    }
+
+    musicButton.addEventListener("click", toggleMusic);
+    surpriseButton.addEventListener("click", showSurprise);
+  </script>
+</body>
+</html>
