@@ -453,7 +453,8 @@
 
     <section class="actions">
       <button class="music-btn" id="musicButton" type="button" aria-pressed="false">Play music</button>
-      <p class="music-hint" id="musicHint">Song loaded: <code>Perfect-(Mr-Jat.i bck for your special surprise</button>
+      <p class="music-hint" id="musicHint">Song loaded: Perfect-(Mr-Jat.in).mp3</p>
+      <button class="surprise-btn" id="surpriseButton" type="button">Click for your special surprise</button>
 
       <article class="surprise-panel" id="surprisePanel" aria-live="polite">
         <h2>Surprise</h2>
@@ -560,8 +561,13 @@
       }
     }
 
-    musicButton.addEventListener("click", toggleMusic);
-    surpriseButton.addEventListener("click", showSurprise);
+    if (musicButton) {
+      musicButton.addEventListener("click", toggleMusic);
+    }
+
+    if (surpriseButton) {
+      surpriseButton.addEventListener("click", showSurprise);
+    }
   </script>
 </body>
 </html>
